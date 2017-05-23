@@ -15,8 +15,12 @@ class CodeBttns extends React.Component {
 
   submit(event) {
     event.preventDefault();
-    const { submit } = this.props;
-    submit(event.target);
+    const { submit, authenticated } = this.props;
+
+    if (authenticated) {
+      submit(event.target);
+    }
+
     this.props.router.push('/markdown');
   }
 

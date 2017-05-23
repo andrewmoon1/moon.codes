@@ -95,7 +95,7 @@ class Code extends React.Component {
   }
 
   render() {
-    const { typingTitle, newArea, submitCode, router } = this.props;
+    const { typingTitle, newArea, submitCode, router, user } = this.props;
     const mapAreas = this.buildAreas();
 
     return (
@@ -117,6 +117,7 @@ class Code extends React.Component {
           newArea={newArea}
           submit={submitCode}
           router={router}
+          authenticated={user.authenticated}
           />
       </form>
     );
@@ -138,7 +139,8 @@ Code.defaultProps = {
 
 function mapStateToProps(state) {
   return {
-    areas: state.code.areas
+    areas: state.code.areas,
+    user: state.user,
   };
 }
 

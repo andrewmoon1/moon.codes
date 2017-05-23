@@ -44,6 +44,14 @@ export default (app) => {
     );
   }
 
+  const loggedIn = (req, res, next) => {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+  };
+
   // topic routes
   if (topicsController) {
     app.get('/topic', topicsController.all);
@@ -56,10 +64,10 @@ export default (app) => {
 
   // code routes
   if (codesController) {
-    app.get('/code/all', codesController.all);
-    app.post('/code/:id', codesController.add);
-    app.put('/code/:id', codesController.update);
-    app.delete('/code/:id', codesController.remove);
+    app.get('/code/all', loggedIn, codesController.all);
+    app.post('/code/:id', loggedIn, codesController.add);
+    app.put('/code/:id', loggedIn, codesController.update);
+    app.delete('/code/:id', loggedIn, codesController.remove);
   } else {
     console.warn(unsupportedMessage('codes routes'));
   }
