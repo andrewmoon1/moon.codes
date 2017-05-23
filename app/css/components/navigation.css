@@ -1,0 +1,24 @@
+@import '../common/colors';
+@import '../common/typography';
+
+.navigation {
+  padding: 0 28px;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.item {
+  display: inline-block;
+  text-decoration: none;
+  padding: 16px 32px;
+  color: var(--colorBlack);
+  flex-shrink: 2;
+}
+
+.logo {
+  font-size: var(--fontHuge);
+}
+
+.active {
+  color: var(--colorDodgerBlue);
+}

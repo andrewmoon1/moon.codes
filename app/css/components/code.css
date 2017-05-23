@@ -1,0 +1,76 @@
+@import '../common/colors';
+
+@import '../../../node_modules/codemirror/lib/codemirror.css';
+
+.codes-container {
+  display: flex;
+}
+
+.code-markdown {
+  width: 47%;
+}
+
+.code-input {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  width: 47%;
+  margin-right: 6%;
+  min-height: 400px;
+}
+
+.code-title-container {
+  margin-top: 10px;
+}
+
+.code-title {
+  height: 30px;
+  width: 127px;
+  padding: 5px;
+  border: 1px solid var(--blue-0);
+}
+
+.code-title:hover, .code-title:active, .code-title:focus {
+  border: 2px solid var(--blue-2);
+  outline: none;
+}
+
+.mirror-container {
+  margin-top: 20px;
+  border: 1px solid var(--blue-0);
+}
+
+.mirror-container:hover, .mirror-container:active, .mirror-container:focus {
+  border: 2px solid var(--blue-2);
+  outline: none;
+}
+
+.cm-s-default {
+  min-height: 240px;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid var(--blue-0);
+  &:hover, &:active, &:focus {
+    border: 2px solid var(--blue-2);
+    outline: none;
+  }
+}
+
+.code-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.code-button {
+  height: 27px;
+  font-size: 14px;
+  color: white;
+  background-color: var(--blue-4);
+  border: 1px solid var(--blue-4);
+  border-radius: 10px;
+  &:hover, &:active, &:focus {
+    background-color: var(--blue-0);
+    outline: none;
+  }
+}

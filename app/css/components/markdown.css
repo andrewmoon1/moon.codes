@@ -1,0 +1,70 @@
+@import '../common/colors';
+
+.markdown-container {
+  width: 100%;
+}
+
+.page-markdown {
+  width: 100%;
+}
+
+.page-markdown > .markdown-container > .markdown {
+  border: none;
+  min-height: 140px;
+  height: auto;
+  overflow: visible;
+}
+
+.page-markdown > .markdown-container {
+  overflow: auto;
+}
+
+.markdown {
+  height: 240px;
+  margin-top: 20px;
+  padding: 5px;
+  overflow: scroll;
+  border: 1px solid var(--green-0);
+}
+
+.markdown:hover, .markdown:active, .markdown:focus {
+  /*border: 2px solid var(--green-2);*/
+}
+
+.markdown-title {
+  margin-top: 3px;
+  margin-bottom: 0;
+}
+
+.markdown-mirror {
+  height: 300px;
+}
+
+.page-markdown > .markdown-container > .markdown-mirror {
+  background-color: #f6f8fa;
+  padding: 11px;
+}
+
+.md-select, .md-save {
+  height: 40px;
+  min-width: 150px;
+  margin-top: 20px;
+  font-size: 16px;
+  outline: none;
+  border: 1px solid var(--green-0);
+}
+
+.md-save {
+  background-color: #f8f8f8;
+  border-radius: 6px;
+}
+
+.md-select:hover, .md-select:active, .md-select:focus,
+.md-save:hover, .md-save:active, .md-save:focus {
+  border: 2px solid var(--green-2);
+}
+
+.md-select-container {
+  display: flex;
+  justify-content: space-around;
+}

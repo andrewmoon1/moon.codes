@@ -1,0 +1,21 @@
+@import '../common/colors';
+
+.textarea {
+  height: 100%;
+  width: 100%;
+  /*text-align-last: center;*/
+  white-space: normal;
+  text-align: justify;
+  border: 1px solid var(--blue-0);
+  padding: 5px;
+}
+.textarea:hover, .textarea:active, .textarea:focus {
+  border: 2px solid var(--blue-2);
+  outline: none;
+}
+
+.text-area-container {
+  height: 240px;
+  width: 100%;
+  margin-top: 20px;
+}
