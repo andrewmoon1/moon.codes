@@ -14,6 +14,7 @@ import { session as dbSession } from '../db';
 
 export default (app) => {
   app.set('port', (process.env.PORT || 3000));
+  console.log(app.get('port'), '-----------------PORT-------------------')
 
   if (ENV === 'production') {
     app.use(gzip());
