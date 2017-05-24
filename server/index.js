@@ -8,6 +8,9 @@ import initExpress from './init/express';
 import initRoutes from './init/routes';
 import renderMiddleware from './render/middleware';
 
+// require('dotenv').config();
+console.log('-fasdf-sdfa-fasdfdsf-', require('dotenv').config())
+
 const app = express();
 
 /*
@@ -62,6 +65,7 @@ app.get('/api/mirror', (req, res, next) => {
  * renderMiddleware matches the URL with react-router and renders the app into
  * HTML
  */
+
 app.get('*', renderMiddleware);
 
 app.listen(app.get('port'));
