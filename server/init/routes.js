@@ -45,7 +45,7 @@ export default (app) => {
   }
 
   const loggedIn = (req, res, next) => {
-    if (req.user) {
+    if (req.user && req.user.role === 'admin') {
         next();
     } else {
         res.redirect('/login');
@@ -64,7 +64,7 @@ export default (app) => {
 
   // code routes
   if (codesController) {
-    app.get('/code/all', loggedIn, codesController.all);
+    app.get('/code/all', codesController.all);
     app.post('/code/:id', loggedIn, codesController.add);
     app.put('/code/:id', loggedIn, codesController.update);
     app.delete('/code/:id', loggedIn, codesController.remove);

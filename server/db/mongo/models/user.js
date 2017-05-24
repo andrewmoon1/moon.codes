@@ -25,7 +25,18 @@ const UserSchema = new mongoose.Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  google: {}
+  google: {},
+  role: { type: String, default: 'user' }
+});
+
+UserSchema.plugin(require('mongoose-role'), {
+  roles: ['public', 'user', 'admin'],
+  accessLevels: {
+    'public': ['public', 'user', 'admin'],
+    'anon': ['public'],
+    'user': ['user', 'admin'],
+    'admin': ['admin']
+  }
 });
 
 function encryptPassword(next) {

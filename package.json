@@ -79,6 +79,7 @@
     "lodash.isequal": "^4.4.0",
     "method-override": "^2.3.8",
     "mongoose": "^4.9.3",
+    "mongoose-role": "^2.0.0",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",

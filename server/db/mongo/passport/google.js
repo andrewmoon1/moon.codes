@@ -13,6 +13,7 @@ export default (req, accessToken, refreshToken, profile, done) => {
         user.profile.name = user.profile.name || profile.displayName;
         user.profile.gender = user.profile.gender || profile._json.gender;
         user.profile.picture = user.profile.picture || profile._json.picture;
+        user.role = 'user';
         user.save((err) => {
           done(err, user, { message: 'Google account has been linked.' });
         });
@@ -32,6 +33,7 @@ export default (req, accessToken, refreshToken, profile, done) => {
       user.profile.name = profile.displayName;
       user.profile.gender = profile._json.gender;
       user.profile.picture = profile._json.picture;
+      user.role = 'user';
       return user.save((err) => {
         done(err, user);
       });
