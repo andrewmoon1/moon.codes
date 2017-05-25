@@ -8,9 +8,6 @@ import initExpress from './init/express';
 import initRoutes from './init/routes';
 import renderMiddleware from './render/middleware';
 
-// require('dotenv').config();
-console.log('-fasdf-sdfa-fasdfdsf-', require('dotenv').config())
-
 const app = express();
 
 /*
