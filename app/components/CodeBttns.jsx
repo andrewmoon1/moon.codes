@@ -42,7 +42,10 @@ class CodeBttns extends React.Component {
           id="areaBttn"
           className={cx('code-button')}
           onClick={this.newEl}>
-            Insert TextArea
+          <span className={cx('hide-small')}>
+            Insert
+          </span>
+            TextArea
         </button>
         <input
           type="submit"
@@ -55,7 +58,10 @@ class CodeBttns extends React.Component {
           id="mirrorBttn"
           className={cx('code-button')}
           onClick={this.newEl}>
-            Insert Code Mirror
+          <span className={cx('hide-small')}>
+            Insert
+          </span>
+            Code Mirror
         </button>
       </div>
     );

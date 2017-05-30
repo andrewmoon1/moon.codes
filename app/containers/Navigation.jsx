@@ -5,16 +5,55 @@ import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { logOut } from '../actions/users';
 import styles from '../css/components/navigation';
+import brand from '../images/brand.png';
+
 
 const cx = classNames.bind(styles);
 
-const Navigation = ({ user, logOut }) => {
+
+class Navigation extends React.Component {
+  constructor(props) {
+    super(props);
+    this.toggleMenu = this.toggleMenu.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  toggleMenu(event) {
+    const nav = document.getElementById('navigation');
+    !nav.style.width || nav.style.width === '0px' ?
+      nav.style.width = '250px' :
+      nav.style.width = '0px';
+  }
+
+  handleClick(event) {
+    const id = event.target.id;
+    if (id === 'brand') {
+      document.querySelector('#home').click();
+    } else if (id !== 'home' && id !== 'brand' && id !== 'navigation' && id !== 'hamburger') {
+      this.toggleMenu();
+    }
+  }
+
+  render() {
+    const { user, logOut } = this.props;
+
     return (
-      <nav className={cx('navigation')} role="navigation">
-        <Link
-          to="/"
-          className={cx('item', 'logo')}
-          activeClassName={cx('active')}>Moon Codes</Link>
+      <div className={cx('navigation-container')} onClick={this.handleClick} >
+        <img
+          className={cx('brand')}
+          src={brand}
+          alt="moon cattle brand"
+          id="brand" />
+        <button
+          onClick={this.toggleMenu}
+          className={cx('hamburger')}
+          id="hamburger" >&#9776;</button>
+        <nav className={cx('navigation')} id="navigation" role="navigation">
+          <Link
+            to="/"
+            className={cx('item', 'logo')}
+            activeClassName={cx('active')}
+            id="home">Moon Codes</Link>
           { user.authenticated ? (
             <Link
               onClick={logOut}
@@ -22,11 +61,13 @@ const Navigation = ({ user, logOut }) => {
           ) : (
             <Link className={cx('item')} to="/login">Log in</Link>
           )}
-        <Link className={cx('item')} to="/dashboard">Dashboard</Link>
-        <Link className={cx('item')} to="/markdown">Documentation</Link>
-        <Link className={cx('item')} to="/about">About</Link>
-      </nav>
+          <Link className={cx('item')} to="/dashboard">Dashboard</Link>
+          <Link className={cx('item')} to="/markdown">Documentation</Link>
+          <Link className={cx('item')} to="/about">About</Link>
+        </nav>
+      </div>
     );
+  }
 };
 
 Navigation.propTypes = {

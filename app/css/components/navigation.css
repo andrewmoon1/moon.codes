@@ -12,7 +12,6 @@
   text-decoration: none;
   padding: 16px 32px;
   color: var(--colorBlack);
-  flex-shrink: 2;
 }
 
 .logo {
@@ -21,4 +20,56 @@
 
 .active {
   color: var(--colorDodgerBlue);
+}
+
+.hamburger {
+  display: none;
+}
+
+@media (max-width: 767px) {
+
+  .navigation-container {
+    display: flex;
+  }
+
+  .hamburger {
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+    right: 30px;
+    height: 35px;
+    width: 35px;
+    font-size: 30px;
+    border: none;
+    background-color: var(--colorWhite);
+    outline: none;
+  }
+
+  .navigation {
+    flex-direction: column;
+    padding: 0;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: var(--colorAthensGray);
+    overflow-x: hidden;
+    padding-top: 25px;
+    transition: 0.5s;
+  }
+
+  .item {
+    color: var(--green-0);
+  }
+
+  .active {
+    color: var(--colorDodgerBlue);
+  }
+}
+
+@media screen and (max-height: 450px) {
+    .navigation {padding-top: 15px;}
+    .item {font-size: 18px;}
 }

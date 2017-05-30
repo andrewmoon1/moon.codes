@@ -48,7 +48,7 @@
 .md-select, .md-save {
   height: 40px;
   min-width: 150px;
-  margin-top: 20px;
+  margin: 20px 0;
   font-size: 16px;
   outline: none;
   border: 1px solid var(--green-0);

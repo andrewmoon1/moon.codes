@@ -2,6 +2,12 @@
 
 @import '../../../node_modules/codemirror/lib/codemirror.css';
 
+@media (max-width: 767px) {
+  .code-form {
+    margin-top: 20px;
+  }
+}
+
 .codes-container {
   display: flex;
 }
@@ -72,5 +78,26 @@
   &:hover, &:active, &:focus {
     background-color: var(--blue-0);
     outline: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .hide-small {
+    display: none;
+  }
+  .codes-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .code-input {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .code-markdown {
+    width: 100%;
+    margin-top: 10px;
+
   }
 }
