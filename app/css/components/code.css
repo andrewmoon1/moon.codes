@@ -72,9 +72,9 @@
   height: 27px;
   font-size: 14px;
   color: white;
-  background-color: var(--blue-4);
-  border: 1px solid var(--blue-4);
-  border-radius: 10px;
+  background-color: var(--green-4);
+  border: 1px solid var(--green-4);
+  border-radius: 4px;
   &:hover, &:active, &:focus {
     background-color: var(--blue-0);
     outline: none;

@@ -15,16 +15,15 @@ const cx = classNames.bind(styles);
 class Navigation extends React.Component {
   constructor(props) {
     super(props);
-    this.toggleMenu = this.toggleMenu.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {
+    const { toggleNav } = this.props;
+
     const id = event.target.id;
     if (id === 'brand') {
       document.querySelector('#home').click();
-    } else if (id !== 'home' && id !== 'brand' && id !== 'navigation' && id !== 'hamburger') {
-      this.toggleMenu();
     }
   }
 

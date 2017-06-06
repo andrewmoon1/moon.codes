@@ -76,6 +76,10 @@
     color: var(--green-0);
   }
 
+  .item:hover, .item:focus, .item:active {
+    color: var(--green-4);
+  }
+
   .active {
     color: var(--colorDodgerBlue);
   }
