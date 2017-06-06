@@ -45,7 +45,7 @@ class App extends React.Component {
     return (
       <div
         onClick={this.toggle}
-        className={cx('app')}>
+        className={cx('app', dom.nav)}>
         <Navigation />
         <Message />
         {children}

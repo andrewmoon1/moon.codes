@@ -3,6 +3,13 @@ import md5 from 'spark-md5';
 import * as types from '../types';
 import { codeService } from '../services';
 
+export function submitMsg(message) {
+  return {
+    type: types.MESSAGE_SUCCESS,
+    message
+  };
+}
+
 function createCodeSuccess() {
   return {
     type: types.CREATE_CODE_SUCCESS
@@ -90,6 +97,7 @@ export function submitCode() {
     return codeService().createCode({ id, data })
       .then((res) => {
         if (res.status === 200) {
+          dispatch(submitMsg(`${data.title} has been saved successfully`));
           return dispatch(createCodeSuccess());
         }
       })

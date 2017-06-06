@@ -18,6 +18,7 @@ body {
 .app {
   @apply --box;
   height: 100%;
+  min-height: 100vh;
   font-weight: normal;
   font-smoothing: antialiased;
   min-width: 330px;

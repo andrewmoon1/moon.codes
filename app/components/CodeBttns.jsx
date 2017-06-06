@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from '../css/components/code';
+import { submitMsg } from '../actions/codes';
+
 
 const cx = classNames.bind(styles);
 
@@ -14,11 +17,14 @@ class CodeBttns extends React.Component {
   }
 
   submit(event) {
+    const { submitMsg, code } = this.props;
     event.preventDefault();
     const { submit, authenticated } = this.props;
 
     if (authenticated) {
       submit(event.target);
+    } else {
+      submitMsg(`${code.title} was not saved, you are not authorized`);
     }
 
     this.props.router.push('/markdown');
@@ -72,4 +78,10 @@ CodeBttns.propTypes = {
   newArea: PropTypes.func.isRequired,
 };
 
-export default CodeBttns;
+function mapStateToProps(state) {
+  return {
+    code: state.code
+  };
+}
+
+export default connect(mapStateToProps, { submitMsg })(CodeBttns);

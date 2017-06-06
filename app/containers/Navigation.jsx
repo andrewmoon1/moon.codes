@@ -58,13 +58,13 @@ class Navigation extends React.Component {
             <Link className={cx('item')} to="/login">Log in</Link>
           )}
           <Link className={cx('item')} to="/dashboard">Dashboard</Link>
-          <Link className={cx('item')} to="/markdown">Documentation</Link>
+          <Link className={cx('item')} to="/code">Submit Code</Link>
           <Link className={cx('item')} to="/about">About</Link>
         </nav>
       </div>
     );
   }
-};
+}
 
 Navigation.propTypes = {
   user: PropTypes.object,
