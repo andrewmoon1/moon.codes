@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { logOut } from '../actions/users';
+import { toggleNav } from '../actions/dom';
 import styles from '../css/components/navigation';
 import brand from '../images/brand.png';
 
@@ -18,13 +19,6 @@ class Navigation extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  toggleMenu(event) {
-    const nav = document.getElementById('navigation');
-    !nav.style.width || nav.style.width === '0px' ?
-      nav.style.width = '250px' :
-      nav.style.width = '0px';
-  }
-
   handleClick(event) {
     const id = event.target.id;
     if (id === 'brand') {
@@ -35,7 +29,7 @@ class Navigation extends React.Component {
   }
 
   render() {
-    const { user, logOut } = this.props;
+    const { user, logOut, toggleNav, dom } = this.props;
 
     return (
       <div className={cx('navigation-container')} onClick={this.handleClick} >
@@ -45,10 +39,13 @@ class Navigation extends React.Component {
           alt="moon cattle brand"
           id="brand" />
         <button
-          onClick={this.toggleMenu}
+          onClick={toggleNav}
           className={cx('hamburger')}
           id="hamburger" >&#9776;</button>
-        <nav className={cx('navigation')} id="navigation" role="navigation">
+        <nav
+          className={cx('navigation', dom.nav)}
+          id="navigation"
+          role="navigation">
           <Link
             to="/"
             className={cx('item', 'logo')}
@@ -77,8 +74,9 @@ Navigation.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    dom: state.dom
   };
 }
 
-export default connect(mapStateToProps, { logOut })(Navigation);
+export default connect(mapStateToProps, { logOut, toggleNav })(Navigation);

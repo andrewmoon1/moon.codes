@@ -3,6 +3,7 @@ import { routerReducer as routing } from 'react-router-redux';
 import user from '../reducers/user';
 import topic from '../reducers/topic';
 import code from '../reducers/code';
+import dom from '../reducers/dom';
 import message from '../reducers/message';
 import * as types from '../types';
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   isFetching,
   topic,
   code,
+  dom,
   user,
   message,
   routing

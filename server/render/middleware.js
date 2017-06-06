@@ -30,6 +30,9 @@ export default function render(req, res) {
         'mirror-1': 'Enter Your Code'
       },
       title: 'Enter Title Here'
+    },
+    dom: {
+      nav: ''
     }
   }, history);
 
