@@ -36,7 +36,7 @@ class CodeBttns extends React.Component {
   newEl(event) {
     const { newArea } = this.props;
     let type = '';
-    event.target.id === 'mirrorBttn' ?
+    event.target.id === 'mirrorBttn' || event.target.parentElement === 'mirrorBttn' ?
       type = 'codeMirror' :
       type = 'textArea';
 
@@ -44,6 +44,8 @@ class CodeBttns extends React.Component {
   }
 
   render() {
+    const mirrorText = ' Code Mirror';
+    const areaText = ' Text Area';
     return (
       <div className={cx('code-buttons')}>
         <button
@@ -54,7 +56,7 @@ class CodeBttns extends React.Component {
           <span className={cx('hide-small')}>
             Insert
           </span>
-            TextArea
+          {areaText}
         </button>
         <input
           type="submit"
@@ -70,7 +72,7 @@ class CodeBttns extends React.Component {
           <span className={cx('hide-small')}>
             Insert
           </span>
-            Code Mirror
+          {mirrorText}
         </button>
       </div>
     );

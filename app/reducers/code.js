@@ -20,6 +20,8 @@ const areas = (
   switch (action.type) {
     case types.NEWAREA:
       return [...state, area(undefined, action)];
+    case types.RESETAREAS:
+      return action.set;
     default:
       return state;
   }

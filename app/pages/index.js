@@ -1,6 +1,7 @@
 export { default as App } from 'pages/App';
 export { default as Vote} from 'pages/Vote';
 export { default as Code} from 'pages/Code';
+export { default as CodeB} from 'pages/Code-B';
 export { default as Markdown} from 'pages/Markdown';
 export { default as Dashboard } from 'pages/Dashboard';
 export { default as LoginOrRegister } from 'pages/LoginOrRegister';

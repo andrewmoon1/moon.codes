@@ -74,10 +74,17 @@ export function typingTitle(text) {
   };
 }
 
-export function newArea(text, target, target1) {
+export function newArea(text) {
   return {
     type: types.NEWAREA,
     newSection: text
+  };
+}
+
+export function resetAreas(toSet) {
+  return {
+    type: types.RESETAREAS,
+    set: toSet || ['textArea', 'codeMirror']
   };
 }
 

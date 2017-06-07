@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
-import Markdown from './Markdown';
-import TextArea from '../components/TextArea';
+import Markdown from './Markdown-B';
+import TextArea from '../components/TextArea-B';
 import Title from '../components/Title';
 import CodeBttns from '../components/CodeBttns';
 import { typingTitle, newArea, submitCode, saveText, load, edit, updateCode, resetAreas } from '../actions/codes';
-import styles from '../css/components/code';
+import styles from '../css/components/code-b';
 
 const cx = classNames.bind(styles);
 const CodeMirror = require('react-codemirror');
@@ -24,39 +24,20 @@ class Code extends React.Component {
     this.saveCode = this.saveCode.bind(this);
   }
 
-  componentWillMount() {
-    const { code, resetAreas, newArea } = this.props;
-    resetAreas();
-    const areas = Object.keys(code.savedAreas)
-
-    areas.forEach((area) => {
-      if (area.includes('text') && area !== 'text-0') {
-        console.log('this should be called')
-        newArea('textArea');
-      } else if (area.includes('mirror') && area !== 'mirror-1') {
-        newArea('codeMirror');
-      }
-    });
-
-    if (areas.length === 1) {
-      resetAreas(['textArea']);
-    }
-  }
-
   componentDidMount() {
     const { load, code } = this.props;
     let data = {
-      'text-0': 'Enter Description Here',
-      'mirror-1': 'Enter Your Code'
+      'text-0': 'Enter Description Here'
     }
     let title = 'Enter Title Here';
 
     if (code.edit) {
       data = code.savedAreas;
       title = code.title;
-    } else if (!code.edit) {
     }
 
+    resetAreas();
+    
     load(data, title);
   }
 
@@ -85,7 +66,11 @@ class Code extends React.Component {
     areas.map((area) => {
       if (area === 'textArea') {
         const textCount = `text-${count}`;
-        const text = code.savedAreas[textCount] || 'Enter Description Here';
+        let text = '';
+
+        if (code.edit) {
+          text = code.savedAreas[textCount];
+        }
 
         mapAreas.push(
           <TextArea
@@ -95,7 +80,7 @@ class Code extends React.Component {
             content={text} />,
         );
 
-        if (count > 1 && !code.savedAreas[textCount]) {
+        if (count > 1) {
           // renders markdown with each new area
           setTimeout(() => {
             saveText(text, textCount);
@@ -122,7 +107,7 @@ class Code extends React.Component {
           </div>
         );
 
-        if (count > 1 && !code.savedAreas[mirrorCount]) {
+        if (count > 1) {
           // renders markdown with each new area
           setTimeout(() => {
             this.saveCode(mirrorCount, text);
@@ -137,10 +122,14 @@ class Code extends React.Component {
   }
 
   render() {
-    const { typingTitle, newArea, submitCode, router, user, code, updateCode } = this.props;
+    const { typingTitle, newArea, submitCode, router, user, code, updateCode, saveText } = this.props;
     const mapAreas = this.buildAreas();
 
-    const titleText = code.title;
+    const count = 0;
+    const textCount = `text-${count}`;
+    const text = code.savedAreas[textCount] || 'Enter Description Here';
+
+    let titleText = code.title;
 
     return (
       <form
@@ -152,7 +141,11 @@ class Code extends React.Component {
             <Title
               onEntryChange={typingTitle}
               title={titleText} />
-            {mapAreas}
+            <TextArea
+              key={count}
+              save={saveText}
+              count={textCount}
+              content={text} />
           </div>
           <div className={cx('code-markdown')}>
             <Markdown />
