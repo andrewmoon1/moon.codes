@@ -31,7 +31,6 @@ const savedAreas = (
 ) => {
   switch (action.type) {
     case types.SAVETEXT:
-      // const res = {};
       state[action.newSection.id] = action.newSection.text;
       return {...state};
     case types.LOAD_DOCUMENTATION:
@@ -81,12 +80,25 @@ const documentation = (
   }
 };
 
+const edit = (
+  state = '',
+  action
+) => {
+  switch (action.type) {
+    case types.EDIT_DOCUMENTATION:
+      return action.title;
+    default:
+      return state;
+  }
+};
+
 const codeReducer = combineReducers({
   newArea,
   areas,
   savedAreas,
   title,
   documentation,
+  edit
 });
 
 export default codeReducer;

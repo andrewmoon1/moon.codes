@@ -17,10 +17,12 @@ export default class TextArea extends Component {
   }
 
   render() {
+    const { content } = this.props;
     return (
       <div className={cx('text-area-container')}>
         <textarea
           className={cx('textarea')}
+          value={content}
           placeholder="Enter Description Here"
           onChange={this.saveCode}
         />
@@ -31,5 +33,6 @@ export default class TextArea extends Component {
 
 TextArea.propTypes = {
   save: PropTypes.func.isRequired,
-  count: PropTypes.string.isRequired
+  count: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired
 };

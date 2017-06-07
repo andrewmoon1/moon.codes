@@ -112,6 +112,37 @@ export function submitCode() {
   };
 }
 
+export function updateCode() {
+  return (dispatch, getState) => {
+    const { code } = getState();
+    const id = md5.hash(code.title);
+
+    const data = {
+      id,
+      title: JSON.stringify(code.title),
+      code: JSON.stringify(code.savedAreas),
+    };
+
+    // First dispatch an optimistic update
+    dispatch(createCodeRequest(data));
+    return codeService().updateCode({ id, data })
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(submitMsg(`${data.title} has been updated successfully`));
+          return dispatch(createCodeSuccess());
+        }
+      })
+      .catch(() => {
+        return dispatch(
+          createCodeFailure({
+            id,
+            error: 'Something went wrong with the code update'
+          })
+        );
+      });
+  };
+}
+
 export function getDocs() {
   return (dispatch, getState) => {
     const { code } = getState();
@@ -143,6 +174,13 @@ export function load(data, title) {
   return {
     type: types.LOAD_DOCUMENTATION,
     data,
+    title,
+  };
+}
+
+export function edit(title) {
+  return {
+    type: types.EDIT_DOCUMENTATION,
     title,
   };
 }

@@ -63,8 +63,7 @@ class MarkdownContainer extends React.Component {
 
     return (
       <div
-        className={cx('markdown-container')}
-        >
+        className={cx('markdown-container')}>
         <h1 className={cx('markdown-title')}>
           {title || 'Enter title here'}
         </h1>

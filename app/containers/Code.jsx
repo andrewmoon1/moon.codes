@@ -6,7 +6,7 @@ import Markdown from './Markdown';
 import TextArea from '../components/TextArea';
 import Title from '../components/Title';
 import CodeBttns from '../components/CodeBttns';
-import { typingTitle, newArea, submitCode, saveText, load } from '../actions/codes';
+import { typingTitle, newArea, submitCode, saveText, load, edit, updateCode } from '../actions/codes';
 import styles from '../css/components/code';
 
 const cx = classNames.bind(styles);
@@ -25,13 +25,27 @@ class Code extends React.Component {
   }
 
   componentDidMount() {
-    const { load } = this.props;
-    const data = {
+    const { load, code } = this.props;
+    let data = {
       'text-0': 'Enter Description Here',
       'mirror-1': 'Enter Your Code'
     }
+    let title = 'Enter Title Here';
 
-    load(data, 'Enter Title Here');
+    if (code.edit) {
+      data = code.savedAreas;
+      title = code.title;
+    }
+
+    load(data, title);
+  }
+
+  componentWillUnmount() {
+    const { code, edit } = this.props;
+
+    if (code.edit) {
+      edit('');
+    }
   }
 
   saveCode(className, focused) {
@@ -46,26 +60,38 @@ class Code extends React.Component {
 
   buildAreas() {
     const mapAreas = [];
-    const { areas, saveText } = this.props;
+    const { areas, saveText, code } = this.props;
     let count = 0;
     areas.map((area) => {
       if (area === 'textArea') {
         const textCount = `text-${count}`;
+        let text = '';
+
+        if (code.edit) {
+          text = code.savedAreas[textCount];
+        }
+
         mapAreas.push(
           <TextArea
             key={count}
             save={saveText}
-            count={textCount} />,
+            count={textCount}
+            content={text} />,
         );
 
         if (count > 1) {
           // renders markdown with each new area
           setTimeout(() => {
-            saveText('Enter Description Here', textCount);
+            saveText(text, textCount);
           }, 0);
         }
       } else if (area === 'codeMirror') {
         const mirrorCount = `mirror-${count}`;
+        let text = 'Enter Your Code';
+        if (code.edit) {
+          text = code.savedAreas[mirrorCount];
+        }
+
         mapAreas.push(
           <div
             key={count}
@@ -73,7 +99,7 @@ class Code extends React.Component {
             <CodeMirror
               options={this.cmOptions}
               className={mirrorCount}
-              defaultValue={'Enter Your Code'}
+              defaultValue={text}
               onChange={this.saveCode.bind(this, mirrorCount)}
               ref={instance => this.mirrors[mirrorCount] = instance}
             />
@@ -83,7 +109,7 @@ class Code extends React.Component {
         if (count > 1) {
           // renders markdown with each new area
           setTimeout(() => {
-            this.saveCode(mirrorCount, 'Enter Your Code');
+            this.saveCode(mirrorCount, text);
           }, 0);
         }
       }
@@ -95,8 +121,14 @@ class Code extends React.Component {
   }
 
   render() {
-    const { typingTitle, newArea, submitCode, router, user } = this.props;
+    const { typingTitle, newArea, submitCode, router, user, code, updateCode } = this.props;
     const mapAreas = this.buildAreas();
+
+    let titleText = '';
+
+    if (code.edit) {
+      titleText = code.edit;
+    }
 
     return (
       <form
@@ -106,7 +138,8 @@ class Code extends React.Component {
           <div
             className={cx('code-input')} >
             <Title
-              onEntryChange={typingTitle} />
+              onEntryChange={typingTitle}
+              title={titleText} />
             {mapAreas}
           </div>
           <div className={cx('code-markdown')}>
@@ -116,6 +149,7 @@ class Code extends React.Component {
         <CodeBttns
           newArea={newArea}
           submit={submitCode}
+          update={updateCode}
           router={router}
           authenticated={user.authenticated}
           />
@@ -130,7 +164,6 @@ Code.propTypes = {
   newArea: PropTypes.func.isRequired,
   submitCode: PropTypes.func.isRequired,
   saveText: PropTypes.func.isRequired,
-  // submit: PropTypes.func.isRequired,
 };
 
 Code.defaultProps = {
@@ -141,7 +174,8 @@ function mapStateToProps(state) {
   return {
     areas: state.code.areas,
     user: state.user,
+    code: state.code
   };
 }
 
-export default connect(mapStateToProps, { typingTitle, newArea, submitCode, saveText, load })(Code);
+export default connect(mapStateToProps, { typingTitle, newArea, submitCode, saveText, load, edit, updateCode })(Code);

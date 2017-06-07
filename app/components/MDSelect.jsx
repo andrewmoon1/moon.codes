@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import FileSaver from 'file-saver';
 import classNames from 'classnames/bind';
 import styles from '../css/components/markdown';
-import { getDocs, load } from '../actions/codes';
+import { getDocs, load, edit } from '../actions/codes';
 
 
 const cx = classNames.bind(styles);
@@ -16,6 +16,7 @@ class MDSelect extends React.Component {
     this.index = 0;
     this.submit = this.submit.bind(this);
     this.download = this.download.bind(this);
+    this.editDoc = this.editDoc.bind(this);
   }
 
   componentDidMount() {
@@ -40,6 +41,12 @@ class MDSelect extends React.Component {
 
       this.index += 1;
     }
+  }
+
+  editDoc(event) {
+    const { edit, title } = this.props;
+    edit(title);
+    this.props.router.push('/code');
   }
 
   submit(event, title) {
@@ -97,6 +104,11 @@ class MDSelect extends React.Component {
           onClick={this.download} >
           Download
         </button>
+        <button
+          className={cx('md-edit')}
+          onClick={this.editDoc} >
+          Edit
+        </button>
       </div>
     );
   }
@@ -117,4 +129,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getDocs, load })(MDSelect);
+export default connect(mapStateToProps, { getDocs, load, edit })(MDSelect);

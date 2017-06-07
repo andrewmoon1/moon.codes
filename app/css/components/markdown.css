@@ -27,10 +27,6 @@
   border: 1px solid var(--green-0);
 }
 
-.markdown:hover, .markdown:active, .markdown:focus {
-  /*border: 2px solid var(--green-2);*/
-}
-
 .markdown-title {
   margin-top: 3px;
   margin-bottom: 0;
@@ -46,21 +42,22 @@
   overflow: scroll;
 }
 
-.md-select, .md-save {
+.md-select, .md-save, .md-edit {
   height: 40px;
   min-width: 150px;
-  margin: 20px 5px 20px 0px;
+  margin: 20px 0;
   font-size: 16px;
   outline: none;
   border: 1px solid var(--green-0);
 }
 
-.md-save {
+.md-save, .md-edit {
   background-color: #f8f8f8;
   border-radius: 6px;
 }
 
 .md-select:hover, .md-select:active, .md-select:focus,
+.md-edit:hover, .md-edit:active, .md-edit:focus,
 .md-save:hover, .md-save:active, .md-save:focus {
   border: 2px solid var(--green-2);
 }
@@ -68,4 +65,14 @@
 .md-select-container {
   display: flex;
   justify-content: space-around;
+}
+
+@media (max-width: 767px) {
+  .md-select-container {
+    flex-direction: column;
+  }
+
+  .md-save {
+    margin: 0;
+  }
 }

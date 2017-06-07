@@ -17,17 +17,20 @@ class CodeBttns extends React.Component {
   }
 
   submit(event) {
-    const { submitMsg, code } = this.props;
+    const { submitMsg, code, update, submit, authenticated } = this.props;
     event.preventDefault();
-    const { submit, authenticated } = this.props;
 
     if (authenticated) {
-      submit(event.target);
+      if (code.edit) {
+        update(event.target)
+      } else {
+        submit(event.target);
+      }
     } else {
       submitMsg(`${code.title} was not saved, you are not authorized`);
     }
 
-    this.props.router.push('/markdown');
+    this.props.router.push('/');
   }
 
   newEl(event) {

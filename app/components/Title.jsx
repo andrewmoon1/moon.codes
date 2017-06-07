@@ -20,15 +20,17 @@ export default class Title extends Component {
 
   saveTitle(event) {
     const { typingTitle } = this.props;
-    console.log(this.props)
     typingTitle(event.target.value);
   }
 
   render() {
+    const { title } = this.props;
+
     return (
       <div className={cx('code-title-container')}>
         <input
           className={cx('code-title')}
+          value={title}
           placeholder="Enter Title Here"
           onChange={this.onChange} />
       </div>
