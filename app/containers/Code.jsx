@@ -26,8 +26,15 @@ class Code extends React.Component {
 
   componentWillMount() {
     const { code, resetAreas, newArea } = this.props;
+    const areas = Object.keys(code.savedAreas);
+
     resetAreas();
-    const areas = Object.keys(code.savedAreas)
+
+    if (typeof(window) !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({event: 'optimize.activate'});
+    }
+
 
     areas.forEach((area) => {
       if (area.includes('text') && area !== 'text-0') {
