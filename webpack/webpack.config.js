@@ -15,6 +15,7 @@ const resolve = require('./resolve');
 module.exports = (env = {}) => {
   const isProduction = process.env.NODE_ENV === 'production';
   const isBrowser = env.browser;
+  const isTest = env === 'test';
   console.log(`Running webpack in ${process.env.NODE_ENV} mode on ${isBrowser ? 'browser': 'server'}`);
 
   const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
@@ -87,9 +88,26 @@ module.exports = (env = {}) => {
     plugins: plugins({ production: false, browser: false })
   };
 
+  const testConfig = {
+    // entry: { app: ['./app/webpack.tests.js'] },
+    // context: PATHS.app,
+    output: {
+      // client assets are output to dist/test/
+      path: PATHS.app,
+      // publicPath: undefined // no assets CDN
+    },
+    // externals,
+    resolve,
+    module: {
+      rules: rules({ production: false, browser: true })
+    },
+    devtool: 'inline-source-map', // sourcemap support
+    plugins: plugins({ test: true }),
+  }
+
   const prodConfig = isBrowser ? prodBrowserRender : prodServerRender;
   const devConfig = isBrowser ? devBrowserRender : devServerRender;
-  const configuration = isProduction ? prodConfig : devConfig;
+  const configuration = isProduction ? prodConfig : isTest ? testConfig : devConfig;
 
   return configuration;
 };

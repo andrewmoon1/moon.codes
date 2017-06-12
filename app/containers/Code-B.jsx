@@ -37,7 +37,7 @@ class Code extends React.Component {
     }
 
     resetAreas();
-    
+
     load(data, title);
   }
 
@@ -151,13 +151,6 @@ class Code extends React.Component {
             <Markdown />
           </div>
         </div>
-        <CodeBttns
-          newArea={newArea}
-          submit={submitCode}
-          update={updateCode}
-          router={router}
-          authenticated={user.authenticated}
-          />
       </form>
     );
   }

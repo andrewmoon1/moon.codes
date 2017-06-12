@@ -2,11 +2,18 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
-module.exports = ({ production = false, browser = false } = {}) => {
+module.exports = ({ production = false, browser = false, test = false } = {}) => {
   const bannerOptions = { raw: true, banner: 'require("source-map-support").install();' };
   const compress = { warnings: false };
   const compileTimeConstantForMinification = { __PRODUCTION__: JSON.stringify(production) };
 
+  if (test) {
+    return [
+      new webpack.DefinePlugin({
+        'typeof window': JSON.stringify("object")
+      })
+    ]
+  }
   if (!production && !browser) {
     return [
       new webpack.EnvironmentPlugin(['NODE_ENV']),
@@ -44,5 +51,6 @@ module.exports = ({ production = false, browser = false } = {}) => {
       })
     ];
   }
+
   return [];
 };
