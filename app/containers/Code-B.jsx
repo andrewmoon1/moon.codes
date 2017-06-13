@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import Markdown from './Markdown-B';
 import TextArea from '../components/TextArea-B';
 import Title from '../components/Title';
-import CodeBttns from '../components/CodeBttns';
+import CodeBttns from '../components/CodeBttns-B';
 import { typingTitle, newArea, submitCode, saveText, load, edit, updateCode, resetAreas } from '../actions/codes';
 import styles from '../css/components/code-b';
 
@@ -151,6 +151,13 @@ class Code extends React.Component {
             <Markdown />
           </div>
         </div>
+        <CodeBttns
+          newArea={newArea}
+          submit={submitCode}
+          update={updateCode}
+          router={router}
+          authenticated={user.authenticated}
+          />
       </form>
     );
   }

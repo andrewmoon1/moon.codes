@@ -15,41 +15,17 @@ module.exports = function(config) {
     basePath: 'app',
     autoWatch: false,
     files: ['actions/__tests__/*.js'],
-    // files: ['webpack.tests.js'],
     preprocessors: {
       // Run this through webpack, and enable inline sourcemaps
-      // 'webpack.tests.js': ['webpack', 'sourcemap'],
       'actions/__tests__/*.js': ['webpack'],
     },
     babelPreprocessor: {
       options: {
         presets: ['es2015'],
       },
-      // filename: function (file) {
-      //   return file.originalPath.replace(/\.js$/, '.es5.js');
-      // },
-      // sourceFileName: function (file) {
-      //   return file.originalPath;
-      // }
     },
 
     webpack: webpackConfig('test'),
-    // webpack: function () {
-    //   return {
-    //     entry: 'webpack.tests.js',
-    //     output: Object.assign({}, config.output, {
-    //       // client assets are output to dist/test/
-    //       path: PATHS.app,
-    //       publicPath: undefined // no assets CDN
-    //     }),
-    //     devtool: 'inline-source-map', // sourcemap support
-    //     plugins: config.plugins.concat(
-    //       new webpack.DefinePlugin({
-    //         'typeof window': JSON.stringify("object")
-    //       })
-    //     )
-    //   };
-    // },
     client: {
       // log console output in our test console
       captureConsole: true
