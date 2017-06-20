@@ -1,6 +1,6 @@
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
-import { db } from './constants';
+import { db, server } from './constants';
 
 const MongoStore = connectMongo(session);
 
@@ -8,6 +8,7 @@ export default () =>
   new MongoStore(
     {
       url: db,
-      autoReconnect: true
+      autoReconnect: true,
+      mongoOptions: server
     }
   );
