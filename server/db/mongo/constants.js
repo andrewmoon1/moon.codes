@@ -6,7 +6,7 @@ export const db = process.env.MONGOHQ_URL || process.env.MONGODB_URI || `mongodb
 
 const key = process.env.KEY ? fs.readFileSync(process.env.KEY) : '';
 const ca = process.env.CA ? [fs.readFileSync(process.env.CA)] : '';
-const options = process.env.CA ?
+export const options = process.env.CA ?
   {
       ssl: true,
       sslValidate: true,
@@ -16,11 +16,12 @@ const options = process.env.CA ?
       socketOptions: { keepAlive: 1 }
   } :
   {};
-// export const options = {
-//   options,
-//   user: process.env.DB_USER,
-//   pass: process.env.DB_PASS,
-// };
+
+export const serverOptions = process.env.CA ?
+  {
+    server: options
+  } :
+  {};
 
 export default {
   db,

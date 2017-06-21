@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import { db, options } from './constants';
+import { db, serverOptions } from './constants';
 import loadModels from './models';
 
 export default () => {
   // Find the appropriate database to connect to, default to localhost if not found.
-  const connectOptions = process.env.NODE_ENV === 'production' ? options : {};
+  const connectOptions = process.env.NODE_ENV === 'production' ? serverOptions : {};
   // console.log(connectOptions, '-----')
   const connect = () => {
     mongoose.connect(db, connectOptions, (err) => {
