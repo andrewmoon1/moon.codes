@@ -1,9 +1,8 @@
-import { GOOGLE_ANALYTICS_ID } from '../../../config/env';
 import assets from '../../../public/assets/manifest.json';
 
 const createAppScript = () => `<script type="text/javascript" charset="utf-8" src="/assets/${assets['app.js']}"></script>`;
 
-const createTrackingScript = () => GOOGLE_ANALYTICS_ID ? createAnalyticsSnippet(GOOGLE_ANALYTICS_ID) : '';
+const createTrackingScript = () => GOOGLE_ANALYTICS_ID ? createAnalyticsSnippet(process.env.GOOGLE_ANALYTICS_ID) : '';
 
 const createAnalyticsSnippet = id =>
   `<style>.async-hide { opacity: 0 !important} </style>
