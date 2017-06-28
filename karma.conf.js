@@ -14,7 +14,9 @@ module.exports = function(config) {
     // The entry point for our test suite
     basePath: 'app',
     autoWatch: false,
-    files: ['actions/__tests__/*.js'],
+    files: [
+      'actions/__tests__/*.js'
+    ],
     preprocessors: {
       // Run this through webpack, and enable inline sourcemaps
       'actions/__tests__/*.js': ['webpack'],

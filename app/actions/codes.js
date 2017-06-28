@@ -24,27 +24,23 @@ function createCodeFailure(data) {
   };
 }
 
-function createDocSuccess(data) {
+function getDocSuccess(data) {
   return {
-    type: types.CREATE_DOC_SUCCESS,
+    type: types.GET_DOC_SUCCESS,
     data
   };
 }
 
-function createDocFailure(data) {
+function getDocFailure(data) {
   return {
-    type: types.CREATE_DOC_FAILURE,
-    id: data.id,
+    type: types.GET_DOC_FAILURE,
     error: data.error
   };
 }
 
-function createDocRequest(data) {
+function createDocRequest() {
   return {
-    type: types.CREATE_DOC_REQUEST,
-    id: data.id,
-    title: data.title,
-    code: data.code
+    type: types.GET_DOC_REQUEST,
   };
 }
 
@@ -118,14 +114,14 @@ export function submitCode(code) {
   };
 }
 
-export function updateCode() {
+export function updateCode(code) {
   return (dispatch, getState) => {
-    const { code } = getState();
+    // const { code } = getState();
     const id = md5.hash(code.title);
 
     const data = {
       id,
-      title: JSON.stringify(code.title),
+      title: code.title,
       code: JSON.stringify(code.savedAreas),
     };
 
@@ -160,18 +156,17 @@ export function getDocs() {
     };
 
     // First dispatch an optimistic update
-    dispatch(createDocRequest(data));
+    dispatch(createDocRequest());
     return codeService().getCodes()
       .then((res) => {
         if (res.status === 200) {
-          return dispatch(createDocSuccess(res.data));
+          return dispatch(getDocSuccess(res.data));
         }
       })
       .catch(() => {
         return dispatch(
-          createDocFailure({
-            error: 'Something went wrong with the code submission',
-            id
+          getDocFailure({
+            error: 'Something went wrong with getting the documentation',
           })
         );
       });

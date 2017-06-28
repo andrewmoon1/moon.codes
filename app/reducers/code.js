@@ -75,7 +75,7 @@ const documentation = (
   action
 ) => {
   switch (action.type) {
-    case types.CREATE_DOC_SUCCESS:
+    case types.GET_DOC_SUCCESS:
       return action.data;
     default:
       return state;
