@@ -88,17 +88,16 @@ export function resetAreas(toSet) {
   };
 }
 
-export function submitCode() {
+export function submitCode(code) {
   return (dispatch, getState) => {
-    const { code } = getState();
+    // const { code } = getState();
     const id = md5.hash(code.title);
 
     const data = {
       id,
-      title: JSON.stringify(code.title),
+      title: code.title,
       code: JSON.stringify(code.savedAreas),
     };
-
     // First dispatch an optimistic update
     dispatch(createCodeRequest(data));
     return codeService().createCode({ id, data })
@@ -159,6 +158,7 @@ export function getDocs() {
       id,
       code: JSON.stringify(code.savedAreas),
     };
+
     // First dispatch an optimistic update
     dispatch(createDocRequest(data));
     return codeService().getCodes()
@@ -170,7 +170,8 @@ export function getDocs() {
       .catch(() => {
         return dispatch(
           createDocFailure({
-            error: 'Something went wrong with the code submission'
+            error: 'Something went wrong with the code submission',
+            id
           })
         );
       });

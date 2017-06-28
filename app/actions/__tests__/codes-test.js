@@ -18,12 +18,15 @@ describe('Code Actions', () => {
     let sandbox;
 
     const index = 0;
-    const code = 'psuedocode is human readable code that does\'t compile';
-    const id = md5.hash(code);
+    const code = 'psuedocode is human readable code that doesn\'t compile';
+    const id = md5.hash('psuedocode');
     const data = {
       id,
       title: 'psuedocode',
-      code
+      savedAreas: {
+        'text-0': 'psuedocode is human readable code that doesn\'t compile',
+        'mirror-1': 'console.log("hello world")'
+      }
     };
 
     const initialState = {
@@ -53,16 +56,18 @@ describe('Code Actions', () => {
           stub.restore();
         });
 
-        it('should dispatch a CREATE_CODE request and success actions', done => {
+        it('should dispatch a CREATE_CODE request, MESSAGE_SUCCESS, and CREATE_CODE_SUCCESS actions.', (done) => {
           const expectedActions = [
             {
               type: types.CREATE_CODE_REQUEST,
               id: data.id,
               title: data.title,
-              code: data.code
+              code: JSON.stringify(data.savedAreas)
+            }, {
+              type: types.MESSAGE_SUCCESS,
+              message: `${data.title} has been saved successfully`
             }, {
               type: types.CREATE_CODE_SUCCESS,
-              data
             }
           ];
 
@@ -71,7 +76,40 @@ describe('Code Actions', () => {
               expect(store.getActions()).toEqual(expectedActions);
               done();
             })
-            .catch(done);
+            .catch(done.fail);
+        });
+      });
+
+      describe('on failure', () => {
+        beforeEach(() => {
+          stub = createCodeServiceStub().replace('createCode').with(() => Promise.reject({ status: 400 }));
+          store = mockStore(initialState);
+        });
+
+        afterEach(() => {
+          stub.restore();
+        });
+
+        it('should dispatch a CREATE_CODE_FAILURE action', (done) => {
+          const expectedActions = [
+            {
+              type: types.CREATE_CODE_REQUEST,
+              id: data.id,
+              title: data.title,
+              code: JSON.stringify(data.savedAreas)
+            }, {
+              type: types.CREATE_CODE_FAILURE,
+              id: data.id,
+              error: 'Something went wrong with the code submission'
+            }
+          ];
+
+          store.dispatch(actions.submitCode(data))
+            .then(() => {
+              expect(store.getActions()).toEqual(expectedActions);
+              done();
+            })
+            .catch(done.fail);
         });
       });
     });

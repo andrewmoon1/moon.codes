@@ -28,9 +28,8 @@ class MDSelect extends React.Component {
   componentDidUpdate() {
     const { docs, areas, title } = this.props;
     const select = document.getElementById('mdSelect');
-
     for (let i = this.index; i < docs.length; i += 1) {
-      const parsedTitle = JSON.parse(docs[i].title);
+      const parsedTitle = docs[i].title;
       const option = document.createElement('option');
       option.text = parsedTitle;
       select.add(option);
@@ -60,7 +59,7 @@ class MDSelect extends React.Component {
     }
 
     docs.some((doc) => {
-      const title = JSON.parse(doc.title);
+      const title = doc.title;
       if (title === submission) {
         const documentation = JSON.parse(doc.code);
         load(documentation, title);

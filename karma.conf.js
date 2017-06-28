@@ -31,7 +31,7 @@ module.exports = function(config) {
       captureConsole: true
     },
 
-    reporters: ['dots'],
+    reporters: ['spec'],
     singleRun: true, // exit after tests have completed
 
     webpackMiddleware: {

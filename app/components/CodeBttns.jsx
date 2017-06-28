@@ -22,9 +22,9 @@ class CodeBttns extends React.Component {
 
     if (authenticated) {
       if (code.edit) {
-        update(event.target)
+        update(code);
       } else {
-        submit(event.target);
+        submit(code);
       }
     } else {
       submitMsg(`${code.title} was not saved, you are not authorized`);

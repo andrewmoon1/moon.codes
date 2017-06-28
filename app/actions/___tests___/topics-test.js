@@ -145,6 +145,7 @@ describe('Topic Actions', () => {
     });
 
 
+
     describe('incrementCount', () => {
       let store;
       let stub;
@@ -330,4 +331,3 @@ describe('Topic Actions', () => {
 
   });
 });
-
