@@ -5,4 +5,12 @@ export function dismissMessage() {
   return { type: types.DISMISS_MESSAGE };
 }
 
+export function submitMsg(message) {
+  return {
+    type: types.MESSAGE_SUCCESS,
+    message
+  };
+}
+
+
 export default { dismissMessage };

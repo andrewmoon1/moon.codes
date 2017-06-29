@@ -2,13 +2,7 @@
 import md5 from 'spark-md5';
 import * as types from '../types';
 import { codeService } from '../services';
-
-export function submitMsg(message) {
-  return {
-    type: types.MESSAGE_SUCCESS,
-    message
-  };
-}
+import { submitMsg } from './messages';
 
 function createCodeSuccess() {
   return {
@@ -21,6 +15,15 @@ function createCodeFailure(data) {
     type: types.CREATE_CODE_FAILURE,
     id: data.id,
     error: data.error
+  };
+}
+
+function createCodeRequest(data) {
+  return {
+    type: types.CREATE_CODE_REQUEST,
+    id: data.id,
+    title: data.title,
+    code: data.code
   };
 }
 
@@ -44,56 +47,15 @@ function createDocRequest() {
   };
 }
 
-function createCodeRequest(data) {
-  return {
-    type: types.CREATE_CODE_REQUEST,
-    id: data.id,
-    title: data.title,
-    code: data.code
-  };
-}
-
-export function saveText(text, target) {
-  return {
-    type: types.SAVETEXT,
-    newSection: {
-      text,
-      id: target
-    }
-  };
-}
-
-export function typingTitle(text) {
-  return {
-    type: types.TYPINGTITLE,
-    title: text,
-  };
-}
-
-export function newArea(text) {
-  return {
-    type: types.NEWAREA,
-    newSection: text
-  };
-}
-
-export function resetAreas(toSet) {
-  return {
-    type: types.RESETAREAS,
-    set: toSet || ['textArea', 'codeMirror']
-  };
-}
-
 export function submitCode(code) {
-  return (dispatch, getState) => {
-    // const { code } = getState();
+  return (dispatch) => {
     const id = md5.hash(code.title);
-
     const data = {
       id,
       title: code.title,
       code: JSON.stringify(code.savedAreas),
     };
+
     // First dispatch an optimistic update
     dispatch(createCodeRequest(data));
     return codeService().createCode({ id, data })
@@ -115,7 +77,7 @@ export function submitCode(code) {
 }
 
 export function updateCode(code) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     // const { code } = getState();
     const id = md5.hash(code.title);
 
@@ -146,15 +108,7 @@ export function updateCode(code) {
 }
 
 export function getDocs() {
-  return (dispatch, getState) => {
-    const { code } = getState();
-    const id = md5.hash(code.title);
-
-    const data = {
-      id,
-      code: JSON.stringify(code.savedAreas),
-    };
-
+  return (dispatch) => {
     // First dispatch an optimistic update
     dispatch(createDocRequest());
     return codeService().getCodes()
@@ -170,6 +124,37 @@ export function getDocs() {
           })
         );
       });
+  };
+}
+
+export function saveText(text, target) {
+  return {
+    type: types.SAVE_TEXT,
+    newSection: {
+      text,
+      id: target
+    }
+  };
+}
+
+export function typingTitle(text) {
+  return {
+    type: types.TYPING_TITLE,
+    title: text,
+  };
+}
+
+export function newArea(text) {
+  return {
+    type: types.NEW_AREA,
+    newSection: text
+  };
+}
+
+export function resetAreas(toSet) {
+  return {
+    type: types.RESET_AREAS,
+    set: toSet || ['textArea', 'codeMirror']
   };
 }
 

@@ -6,7 +6,7 @@ const area = (
   action
 ) => {
   switch (action.type) {
-    case types.NEWAREA:
+    case types.NEW_AREA:
       return action.newSection;
     default:
       return state;
@@ -18,9 +18,9 @@ const areas = (
   action
 ) => {
   switch (action.type) {
-    case types.NEWAREA:
+    case types.NEW_AREA:
       return [...state, area(undefined, action)];
-    case types.RESETAREAS:
+    case types.RESET_AREAS:
       return action.set;
     default:
       return state;
@@ -32,7 +32,7 @@ const savedAreas = (
   action
 ) => {
   switch (action.type) {
-    case types.SAVETEXT:
+    case types.SAVE_TEXT:
       state[action.newSection.id] = action.newSection.text;
       return {...state};
     case types.LOAD_DOCUMENTATION:
@@ -47,7 +47,7 @@ const newArea = (
   action
 ) => {
   switch (action.type) {
-    case types.TYPINGTEXT:
+    case types.TYPING_TEXT:
       return action.newSection;
       case types.TYPINGCODE:
       return action.newSection;
@@ -61,7 +61,7 @@ const title = (
   action
 ) => {
   switch (action.type) {
-    case types.TYPINGTITLE:
+    case types.TYPING_TITLE:
       return action.title;
       case types.LOAD_DOCUMENTATION:
         return action.title;
