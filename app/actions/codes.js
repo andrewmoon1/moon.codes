@@ -79,7 +79,7 @@ export function submitCode(code) {
 export function updateCode(code) {
   return (dispatch) => {
     // const { code } = getState();
-    const id = md5.hash(code.title);
+    const id = md5.hash(code.edit);
 
     const data = {
       id,
@@ -93,6 +93,7 @@ export function updateCode(code) {
       .then((res) => {
         if (res.status === 200) {
           dispatch(submitMsg(`${data.title} has been updated successfully`));
+          dispatch(edit(''));
           return dispatch(createCodeSuccess());
         }
       })

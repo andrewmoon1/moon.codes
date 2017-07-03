@@ -30,7 +30,7 @@ export function add(req, res) {
 }
 
 /**
- * Update a topic
+ * Update a code
  */
 export function update(req, res) {
   const query = { id: req.params.id };
@@ -39,25 +39,14 @@ export function update(req, res) {
   const omitKeys = ['id', '_id', '_v', 'isIncrement', 'isFull'];
   const data = _.omit(req.body, omitKeys);
 
-  if (isFull) {
-    Code.findOneAndUpdate(query, data, (err) => {
-      if (err) {
-        console.log('Error on save!');
-        return res.status(500).send('We failed to save for some reason');
-      }
+  Code.findOneAndUpdate(query, data, (err) => {
+    if (err) {
+      console.log('Error on save!');
+      return res.status(500).send('We failed to save for some reason');
+    }
 
-      return res.status(200).send('Updated successfully');
-    });
-  } else {
-    Code.findOneAndUpdate(query, { $inc: { count: isIncrement ? 1 : -1 } }, (err) => {
-      if (err) {
-        console.log('Error on save!');
-        return res.status(500).send('We failed to save for some reason');
-      }
-
-      return res.status(200).send('Updated successfully');
-    });
-  }
+    return res.status(200).send('Updated successfully');
+  });
 }
 
 /**

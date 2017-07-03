@@ -28,7 +28,8 @@ describe('Code Actions', () => {
       savedAreas: {
         'text-0': 'psuedocode is human readable code that doesn\'t compile',
         'mirror-1': 'console.log("hello world")'
-      }
+      },
+      edit: 'psuedocode'
     };
 
     const initialState = {
@@ -140,7 +141,7 @@ describe('Code Actions', () => {
           stub.restore();
         });
 
-        it('should dispatch a CREATE_CODE request, MESSAGE_SUCCESS, and CREATE_CODE_SUCCESS actions.', (done) => {
+        it('should dispatch a CREATE_CODE request, MESSAGE_SUCCESS, EDIT_DOCUMENTATION, and CREATE_CODE_SUCCESS actions.', (done) => {
           const expectedActions = [
             {
               type: types.CREATE_CODE_REQUEST,
@@ -150,6 +151,9 @@ describe('Code Actions', () => {
             }, {
               type: types.MESSAGE_SUCCESS,
               message: `${data.title} has been updated successfully`
+            }, {
+              type: types.EDIT_DOCUMENTATION,
+              title: ''
             }, {
               type: types.CREATE_CODE_SUCCESS,
             }
