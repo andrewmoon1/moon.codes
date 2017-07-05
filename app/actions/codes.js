@@ -4,6 +4,27 @@ import * as types from '../types';
 import { codeService } from '../services';
 import { submitMsg } from './messages';
 
+function removeCodeSuccess() {
+  return {
+    type: types.REMOVE_CODE_SUCCESS
+  };
+}
+
+function removeCodeRequest(id) {
+  return {
+    type: types.REMOVE_CODE_REQUEST,
+    id,
+  };
+}
+
+function removeCodeFailure(data) {
+  return {
+    type: types.CREATE_CODE_FAILURE,
+    id: data.id,
+    error: data.error
+  };
+}
+
 function createCodeSuccess() {
   return {
     type: types.CREATE_CODE_SUCCESS
@@ -78,30 +99,56 @@ export function submitCode(code) {
 
 export function updateCode(code) {
   return (dispatch) => {
-    // const { code } = getState();
     const id = md5.hash(code.edit);
+    const titleId = md5.hash(code.title);
 
-    const data = {
-      id,
-      title: code.title,
-      code: JSON.stringify(code.savedAreas),
-    };
+    if (id !== titleId) {
+      dispatch(removeCode(id, code.edit));
+      return dispatch(submitCode(code));
+    } else {
+      const data = {
+        id,
+        title: code.title,
+        code: JSON.stringify(code.savedAreas),
+      };
 
-    // First dispatch an optimistic update
-    dispatch(createCodeRequest(data));
-    return codeService().updateCode({ id, data })
+      // First dispatch an optimistic update
+      dispatch(createCodeRequest(data));
+      return codeService().updateCode({ id, data })
+        .then((res) => {
+          if (res.status === 200) {
+            dispatch(submitMsg(`${data.title} has been updated successfully`));
+            dispatch(edit(''));
+            return dispatch(createCodeSuccess());
+          }
+        })
+        .catch(() => {
+          return dispatch(
+            createCodeFailure({
+              id,
+              error: 'Something went wrong with the code update'
+            })
+          );
+        });
+    }
+  };
+}
+
+export function removeCode(id, title) {
+  return (dispatch) => {
+    dispatch(removeCodeRequest(id));
+    return codeService().deleteCode({ id })
       .then((res) => {
         if (res.status === 200) {
-          dispatch(submitMsg(`${data.title} has been updated successfully`));
-          dispatch(edit(''));
-          return dispatch(createCodeSuccess());
+          dispatch(submitMsg(`${title} has been removed successfully`));
+          return dispatch(removeCodeSuccess());
         }
       })
       .catch(() => {
         return dispatch(
-          createCodeFailure({
+          removeCodeFailure({
             id,
-            error: 'Something went wrong with the code update'
+            error: 'Something went wrong with the code removal'
           })
         );
       });
