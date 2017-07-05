@@ -21,6 +21,7 @@ export default function render(req, res) {
       isLogin: true
     },
     code: {
+      // newArea: {},
       areas: [
         'textArea',
         'codeMirror',

@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from '../css/components/code';
-import { submitMsg } from '../actions/messages';
-
 
 const cx = classNames.bind(styles);
 
 
-class CodeBttns extends React.Component {
+export class CodeBttns extends React.Component {
   constructor(props) {
     super(props);
     this.newEl = this.newEl.bind(this);
@@ -17,7 +15,7 @@ class CodeBttns extends React.Component {
   }
 
   submit(event) {
-    const { submitMsg, code, update, submit, authenticated } = this.props;
+    const { message, code, update, submit, authenticated } = this.props;
     event.preventDefault();
 
     if (authenticated) {
@@ -27,7 +25,7 @@ class CodeBttns extends React.Component {
         submit(code);
       }
     } else {
-      submitMsg(`${code.title} was not saved, you are not authorized`);
+      message(`${code.title} was not saved, you are not authorized`);
     }
 
     this.props.router.push('/');
@@ -81,6 +79,17 @@ class CodeBttns extends React.Component {
 
 CodeBttns.propTypes = {
   newArea: PropTypes.func.isRequired,
+  message: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
+  authenticated: PropTypes.bool.isRequired,
+  code: PropTypes.objectOf(PropTypes.shape({
+    areas: PropTypes.arrayOf(PropTypes.string),
+    savedAreas: PropTypes.objectOf(PropTypes.string),
+    title: PropTypes.string,
+    documentation: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+    edit: PropTypes.string,
+  })).isRequired,
 };
 
 function mapStateToProps(state) {
@@ -89,4 +98,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { submitMsg })(CodeBttns);
+export default connect(mapStateToProps, {})(CodeBttns);

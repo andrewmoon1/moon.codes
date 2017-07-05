@@ -42,19 +42,19 @@ const savedAreas = (
   }
 };
 
-const newArea = (
-  state = '',
-  action
-) => {
-  switch (action.type) {
-    case types.TYPING_TEXT:
-      return action.newSection;
-      case types.TYPINGCODE:
-      return action.newSection;
-    default:
-      return state;
-  }
-};
+// const newArea = (
+//   state = '',
+//   action
+// ) => {
+//   switch (action.type) {
+//     case types.TYPING_TEXT:
+//       return action.newSection;
+//       case types.TYPINGCODE:
+//       return action.newSection;
+//     default:
+//       return state;
+//   }
+// };
 
 const title = (
   state = '',
@@ -95,7 +95,7 @@ const edit = (
 };
 
 const codeReducer = combineReducers({
-  newArea,
+  // newArea,
   areas,
   savedAreas,
   title,

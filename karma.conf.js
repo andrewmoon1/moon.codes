@@ -15,15 +15,17 @@ module.exports = function(config) {
     basePath: 'app',
     autoWatch: false,
     files: [
-      'actions/__tests__/*.js'
+      'actions/__tests__/*.js',
+      'components/__tests__/CodeBttns-test.js'
     ],
     preprocessors: {
       // Run this through webpack, and enable inline sourcemaps
       'actions/__tests__/*.js': ['webpack'],
+      'components/__tests__/*.js': ['webpack'],
     },
     babelPreprocessor: {
       options: {
-        presets: ['es2015'],
+        presets: ['es2015', 'react'],
       },
     },
 
@@ -42,7 +44,7 @@ module.exports = function(config) {
 
     // Webpack takes a little while to compile -- this manifests as a really
     // long load time while webpack blocks on serving the request.
-    browserNoActivityTimeout: 90000, // 60 seconds
+    browserNoActivityTimeout: 90000, // 90 seconds
 
   });
 };

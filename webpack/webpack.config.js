@@ -96,10 +96,16 @@ module.exports = (env = {}) => {
       path: PATHS.app,
       // publicPath: undefined // no assets CDN
     },
-    // externals,
+    node,
+    externals: {
+        cheerio: 'window',
+        'react/addons': true,
+        'react/lib/ExecutionEnvironment': true,
+        'react/lib/ReactContext': true,
+      },
     resolve,
     module: {
-      rules: rules({ production: false, browser: true })
+      rules: rules({ production: false, browser: true, test: true })
     },
     devtool: 'inline-source-map', // sourcemap support
     plugins: plugins({ test: true }),
