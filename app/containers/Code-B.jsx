@@ -7,6 +7,7 @@ import TextArea from '../components/TextArea-B';
 import Title from '../components/Title';
 import CodeBttns from '../components/CodeBttns-B';
 import { typingTitle, newArea, submitCode, saveText, load, edit, updateCode, resetAreas } from '../actions/codes';
+import { submitMsg } from '../actions/messages';
 import styles from '../css/components/code-b';
 
 const cx = classNames.bind(styles);
@@ -122,7 +123,7 @@ class Code extends React.Component {
   }
 
   render() {
-    const { typingTitle, newArea, submitCode, router, user, code, updateCode, saveText } = this.props;
+    const { typingTitle, newArea, submitCode, router, user, code, updateCode, saveText, submitMsg } = this.props;
     const mapAreas = this.buildAreas();
 
     const count = 0;
@@ -154,6 +155,7 @@ class Code extends React.Component {
         <CodeBttns
           newArea={newArea}
           submit={submitCode}
+          message={submitMsg}
           update={updateCode}
           router={router}
           authenticated={user.authenticated}
@@ -183,4 +185,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { typingTitle, newArea, submitCode, saveText, load, edit, updateCode, resetAreas })(Code);
+export default connect(mapStateToProps, { typingTitle, newArea, submitCode, saveText, load, edit, updateCode, resetAreas, submitMsg })(Code);
