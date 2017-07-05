@@ -202,6 +202,76 @@ describe('Code Actions', () => {
       });
     });
 
+    describe('removeCode', () => {
+      let store;
+      let stub;
+
+      describe('on success', () => {
+        beforeEach(() => {
+          stub = createCodeServiceStub().replace('deleteCode').with(() => Promise.resolve({
+            status: 200
+          }));
+          store = mockStore(initialState);
+        });
+
+        afterEach(() => {
+          stub.restore();
+        });
+
+        it('should dispatch a REMOVE_CODE_REQUEST, MESSAGE_SUCCESS, REMOVE_CODE_SUCCESS actions.', (done) => {
+          const expectedActions = [
+            {
+              type: types.REMOVE_CODE_REQUEST,
+              id: data.id
+            }, {
+              type: types.MESSAGE_SUCCESS,
+              message: `${data.title} has been removed successfully`
+            }, {
+              type: types.REMOVE_CODE_SUCCESS
+            }
+          ];
+
+          store.dispatch(actions.removeCode(data.id, data.title))
+            .then(() => {
+              expect(store.getActions()).toEqual(expectedActions);
+              done();
+            })
+            .catch(done.fail);
+        });
+      });
+
+      describe('on failure', () => {
+        beforeEach(() => {
+          stub = createCodeServiceStub().replace('deleteCode').with(() => Promise.reject({
+            status: 400
+          }));
+          store = mockStore(initialState);
+        });
+
+        afterEach(() => {
+          stub.restore();
+        });
+
+        it('should dispatch a CREATE_CODE_FAILURE action', (done) => {
+          const expectedActions = [{
+            type: types.REMOVE_CODE_REQUEST,
+            id: data.id
+          }, {
+            type: types.REMOVE_CODE_FAILURE,
+            id: data.id,
+            error: 'Something went wrong with the code removal'
+          }];
+
+          store.dispatch(actions.removeCode(data.id, data.title))
+            .then(() => {
+              expect(store.getActions()).toEqual(expectedActions);
+              done();
+            })
+            .catch(done.fail);
+        });
+      });
+    });
+
     describe('getDocs', () => {
       let store;
       let stub;

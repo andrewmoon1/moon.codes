@@ -19,7 +19,7 @@ function removeCodeRequest(id) {
 
 function removeCodeFailure(data) {
   return {
-    type: types.CREATE_CODE_FAILURE,
+    type: types.REMOVE_CODE_FAILURE,
     id: data.id,
     error: data.error
   };
