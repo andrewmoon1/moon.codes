@@ -10,7 +10,7 @@ import { getDocs, load, edit } from '../actions/codes';
 const cx = classNames.bind(styles);
 
 
-class MDSelect extends React.Component {
+export class MDSelect extends React.Component {
   constructor(props) {
     super(props);
     this.index = 0;
@@ -26,12 +26,15 @@ class MDSelect extends React.Component {
   }
 
   componentDidUpdate() {
-    const { docs, areas, title } = this.props;
+    const { docs, areas, title, edit } = this.props;
     const select = document.getElementById('mdSelect');
     for (let i = this.index; i < docs.length; i += 1) {
       const parsedTitle = docs[i].title;
       const option = document.createElement('option');
       option.text = parsedTitle;
+      if (title === parsedTitle || edit === parsedTitle) {
+        option.selected = true;
+      }
       select.add(option);
 
       if (i === 0 && (!this.submission || title === 'Enter Title Here')) {
@@ -117,7 +120,9 @@ MDSelect.propTypes = {
   getDocs: PropTypes.func.isRequired,
   load: PropTypes.func.isRequired,
   docs: PropTypes.arrayOf(PropTypes.object).isRequired,
-
+  areas: PropTypes.objectOf(PropTypes.string).isRequired,
+  title: PropTypes.string.isRequired,
+  edit: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

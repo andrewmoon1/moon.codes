@@ -2,9 +2,7 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import md5 from 'spark-md5';
-import {
-  polyfill
-} from 'es6-promise';
+import { polyfill } from 'es6-promise';
 import expect from 'expect';
 import * as actions from '../../actions/codes';
 import * as types from '../../types';

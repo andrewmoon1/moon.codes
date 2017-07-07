@@ -17,7 +17,8 @@ module.exports = function(config) {
     files: [
       'actions/__tests__/*.js',
       'components/__tests__/CodeBttns-test.js',
-      'components/__tests__/CodeBttns-B-test.js'
+      'components/__tests__/CodeBttns-B-test.js',
+      'components/__tests__/MDSelect-test.js',
     ],
     preprocessors: {
       // Run this through webpack, and enable inline sourcemaps

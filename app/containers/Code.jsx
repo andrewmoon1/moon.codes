@@ -39,7 +39,6 @@ class Code extends React.Component {
 
     areas.forEach((area) => {
       if (area.includes('text') && area !== 'text-0') {
-        console.log('this should be called')
         newArea('textArea');
       } else if (area.includes('mirror') && area !== 'mirror-1') {
         newArea('codeMirror');

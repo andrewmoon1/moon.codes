@@ -37,6 +37,7 @@
   "globals": {
     "__DEVSERVER__": true,
     "__DEVCLIENT__": true,
-    "expect": true
+    "expect": true,
+    "jasmine": true
   }
 }
